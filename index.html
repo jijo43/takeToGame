@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open App</title>
+    <script type="text/javascript">
+        function openApp() {
+            var now = new Date().getTime();
+            setTimeout(function() {
+                // Redirect to Play Store after 1.5 seconds if the app is not installed
+                if (new Date().getTime() - now < 1600) {
+                    window.location.href = 'market://details?id=com.bandainamcoent.dblegends_ww';
+                    checkAppInstalled();
+                }
+            }, 1500);
+
+            // Attempt to open the app using an intent link
+            window.location.href = 'gatch://tictactoe?ServerConnection#';
+        }
+
+        function checkAppInstalled() {
+            var intervalId = setInterval(function() {
+                // Attempt to open the app again every 2 seconds
+                window.location.href = 'gatch://tictactoe?ServerConnection#';
+                
+                // If the document is hidden, it means the app is opened, so clear the interval
+                if (document.hidden) {
+                    clearInterval(intervalId);
+                }
+            }, 2000);
+        }
+    </script>
+</head>
+<body onload="openApp()">
+    <p>Redirecting...</p>
+</body>
+</html>
