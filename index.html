@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open App</title>
     <script type="text/javascript">
         function openApp() {
+             var urlParams = new URLSearchParams(window.location.search);
+            var path = window.location.pathname; // Get the path part of the URL
+            var queryString = window.location.search; // Get the query string part of the URL
+            var lastSegment = queryString.split('?')[1]; // Get the part after "?"
             var now = new Date().getTime();
+
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var isAndroid = /android/i.test(userAgent);
+            var isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+            
             setTimeout(function() {
                 // Redirect to Play Store after 1.5 seconds if the app is not installed
                 if (new Date().getTime() - now < 1600) {
-                    window.location.href = 'market://details?id=com.bandainamcoent.dblegends_ww';
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase';
                     checkAppInstalled();
                 }
             }, 1500);
 
             // Attempt to open the app using an intent link
-            window.location.href = 'gatch://tictactoe?ServerConnection#';
+            window.location.href = 'gatch://tictactoe?ServerConnection#'+lastSegment;
         }
 
         function checkAppInstalled() {
             var intervalId = setInterval(function() {
                 // Attempt to open the app again every 2 seconds
-                window.location.href = 'gatch://tictactoe?ServerConnection#';
+                window.location.href = 'gatch://tictactoe?ServerConnection#'+lastSegment;
                 
                 // If the document is hidden, it means the app is opened, so clear the interval
                 if (document.hidden) {
