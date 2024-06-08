@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open App</title>
-    <script type="text/javascript">
+    <script>
         function openApp() {
-             var urlParams = new URLSearchParams(window.location.search);
+            var urlParams = new URLSearchParams(window.location.search);
             var path = window.location.pathname; // Get the path part of the URL
             var queryString = window.location.search; // Get the query string part of the URL
             var lastSegment = queryString.split('?')[1]; // Get the part after "?"
@@ -18,10 +18,12 @@
 
             
             setTimeout(function() {
+                if (isAndroid) {
                 // Redirect to Play Store after 1.5 seconds if the app is not installed
-                if (new Date().getTime() - now < 1600) {
-                    window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase';
-                    checkAppInstalled();
+                    if (new Date().getTime() - now < 1600) {
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase';
+                        checkAppInstalled();
+                    }
                 }
             }, 1500);
 
