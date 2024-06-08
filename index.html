@@ -19,16 +19,22 @@
             
             setTimeout(function() {
                 if (isAndroid) {
-                // Redirect to Play Store after 1.5 seconds if the app is not installed
+               // Redirect to Play Store after 1.5 seconds if the app is not installed
                     if (new Date().getTime() - now < 1600) {
-                        window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase';
-                        checkAppInstalled();
+                        document.getElementById('instructions').style.display = 'block';
+                        setTimeout(function() {
+                            window.location.href = 'https://play.google.com/store/apps/details?id=com.nflystudio.InfiniteStaircase';
+                        }, 3000); // Delay the redirect to give users time to read the message
                     }
                 }
             }, 1500);
 
             // Attempt to open the app using an intent link
             window.location.href = 'gatch://tictactoe?ServerConnection#'+lastSegment;
+        }
+        function retryOpenApp() {
+            var queryString = window.location.search;
+            window.location.href = 'gatch://tictactoe?ServerConnection' + queryString;
         }
 
         function checkAppInstalled() {
@@ -46,5 +52,9 @@
 </head>
 <body onload="openApp()">
     <p>Redirecting...</p>
+    <div id="instructions" style="display:none;">
+        <p>Install the app from the Play Store. After installation, please return to this page and click the button below to open the app.</p>
+        <button onclick="retryOpenApp()">Open App</button>
+    </div>
 </body>
 </html>
